@@ -1,0 +1,2 @@
+请把db_config.example.ini重命名为db_config.ini
+并修改hostname，password，database，user为实际值

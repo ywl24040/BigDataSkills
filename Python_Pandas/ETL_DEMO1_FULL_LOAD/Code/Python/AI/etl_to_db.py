@@ -9,8 +9,9 @@ from db_config import DB_CONFIG
 
 
 BASE_DIR = Path(__file__).resolve().parent
-RAW_FILE = BASE_DIR / "raw_orders.csv"
-CLEAN_FILE = BASE_DIR / "clean_orders.csv"
+FEED_FILES_DIR= BASE_DIR / "FeedFiles" 
+RAW_FILE = FEED_FILES_DIR / "raw_orders.csv"
+CLEAN_FILE = FEED_FILES_DIR / "clean_orders.csv"
 
 
 def parse_mixed_date(value: object) -> pd.Timestamp:
