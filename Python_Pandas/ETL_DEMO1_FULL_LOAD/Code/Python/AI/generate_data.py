@@ -6,7 +6,9 @@ import pandas as pd
 
 
 BASE_DIR = Path(__file__).resolve().parent
-RAW_FILE = BASE_DIR / "raw_orders.csv"
+FEED_FILES_DIR= BASE_DIR / "FeedFiles" 
+RAW_FILE = FEED_FILES_DIR / "raw_orders.csv"      
+CLEAN_FILE = FEED_FILES_DIR / "clean_orders.csv"
 TOTAL_ROWS = 3500
 DUPLICATE_ROWS = 300
 RANDOM_SEED = 20260818
@@ -18,9 +20,13 @@ def build_date_text(date_value: datetime) -> str:
         "%Y/%m/%d",
         "%d-%m-%Y",
     ]
-    return date_value.strftime(random.choice(formats))
+    #从 3 种日期格式里随机选 1 种
+    selected_format = random.choice(formats)
+    return date_value.strftime(selected_format)
 
-
+# 生成基础订单数据
+# 每个订单包含订单 ID、用户名称、订单日期、订单金额、城市、备注
+#  list[dict]  每个 dict 包含订单 ID、用户名称、订单日期、订单金额、城市、备注
 def build_base_rows(total_rows: int) -> list[dict]:
     random.seed(RANDOM_SEED)
     cities = ["Beijing", "Shanghai", "Shenzhen", "Guangzhou", "Hangzhou", "Chengdu"]
@@ -45,14 +51,15 @@ def build_base_rows(total_rows: int) -> list[dict]:
 
 def append_duplicate_rows(rows: list[dict], duplicate_rows: int) -> list[dict]:
     sampled_rows = random.sample(rows, duplicate_rows)
-    return rows + [row.copy() for row in sampled_rows]
+    # return rows + [row.copy() for row in sampled_rows]
+    return rows + sampled_rows
 
 
 def main() -> None:
     rows = build_base_rows(TOTAL_ROWS)
     all_rows = append_duplicate_rows(rows, DUPLICATE_ROWS)
     df = pd.DataFrame(all_rows)
-    df.to_csv(RAW_FILE, index=False, encoding="utf-8-sig")
+    df.to_csv(RAW_FILE, index=False, encoding="utf-8-sig",decimal=",",quotechar='"',quoting='all')
 
     print(f"raw file: {RAW_FILE}")
     print(f"total rows written: {len(df)}")

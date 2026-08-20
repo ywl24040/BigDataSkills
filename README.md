@@ -4,20 +4,64 @@
 大数据技术栈，针对ETL开发人员的技能补充
 
 #### 软件架构
-软件架构说明
 
+```toml
+[project]
+requires-python = ">=3.12,<3.13"
+```
 
-#### 安装教程
+#### 环境管理（Conda + pip）
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+本仓库采用“全局学习环境 + Demo 专用环境”的方式进行 Python 环境管理（更规范、可复现）。
 
-#### 使用说明
+环境文件：
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+- 全局环境：[environment.yml](file:///g:/DataSkills/big-data-skills/environment.yml)
+- ETL_DEMO1_FULL_LOAD 专用环境：[environment.yml](file:///g:/DataSkills/big-data-skills/Python_Pandas/ETL_DEMO1_FULL_LOAD/environment.yml)
+
+Conda 安装（Windows）：
+
+- 本仓库提供 Miniconda 安装包：[Miniconda3-latest-Windows-x86_64.exe](file:///g:/DataSkills/big-data-skills/InstallPackages/Miniconda3-latest-Windows-x86_64.exe)
+- 安装后如 PowerShell 中 `conda` 不可用，可执行一次并重开终端：
+
+```powershell
+conda init powershell
+```
+
+Conda 建议配置（可选）：
+
+```bash
+conda config --add channels conda-forge
+conda config --set channel_priority strict
+```
+
+创建/使用全局环境（推荐日常学习用）：
+
+```bash
+conda env create -f environment.yml
+conda activate big-data-skills
+```
+
+创建/使用 ETL_DEMO1_FULL_LOAD 专用环境（跑 Demo 用）：
+
+```bash
+conda env create -f Python_Pandas/ETL_DEMO1_FULL_LOAD/environment.yml
+conda activate big-data-skills-etl-demo1
+```
+
+更新环境（environment.yml 修改后）：
+
+```bash
+conda env update -f environment.yml --prune
+```
+
+ETL Demo 位置：
+
+- 代码目录：[ETL_DEMO1_FULL_LOAD/Code/Python](file:///g:/DataSkills/big-data-skills/Python_Pandas/ETL_DEMO1_FULL_LOAD/Code/Python)
+
+参考文档：
+
+- [python_conda_pip_enterprise_env_management.md](file:///g:/DataSkills/big-data-skills/GuideLine/EnvConfigurationManagement/python_conda_pip_enterprise_env_management.md)
 
 #### 参与贡献
 

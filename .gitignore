@@ -4,6 +4,10 @@ bin-release/
 [Oo]bj/
 [Bb]in/
 
+config/db_config.ini
+
+.en
+
 # Other files and folders
 .settings/
 
