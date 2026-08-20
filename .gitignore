@@ -5,7 +5,7 @@ bin-release/
 [Bb]in/
 
 config/db_config.ini
-
+InstallPackages/
 .en
 
 # Other files and folders
