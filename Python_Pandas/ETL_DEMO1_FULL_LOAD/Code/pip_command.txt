@@ -1,0 +1,25 @@
+# pip架构核心命令
+pip install package_name        # 从PyPI安装包
+pip install -r requirements.txt # 批量安装依赖
+pip install -e .                # 开发模式安装
+pip freeze > requirements.txt   # 导出环境依赖
+pip show package_name           # 查看包详细信息
+
+
+# JupyterLab 4.x 企业级扩展
+pip install jupyterlab==4.0.9
+
+# 核心扩展
+pip install jupyterlab-git            # Git集成
+pip install jupyterlab-lsp           # 语言服务器支持
+pip install python-lsp-server[all]   # Python LSP
+pip install jupyterlab-code-formatter # 代码格式化
+pip install nbdime                    # Notebook差异比较
+
+# 数据科学扩展
+pip install jupyterlab-variableinspector
+pip install jupyterlab-spreadsheet
+pip install jupyterlab-plotly
+
+# 启用扩展
+jupyter lab build

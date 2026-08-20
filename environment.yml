@@ -1,0 +1,23 @@
+name: big-data-skills
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  - pip
+  - numpy
+  - pandas
+  - sqlalchemy
+  - pymysql
+  - ipykernel
+  - jupyterlab
+  - pip:
+      - ruff
+      - black
+      - pytest
+      - pre-commit
+      - pip-tools
+      - jupyterlab-git
+      - jupyterlab-lsp
+      - python-lsp-server[all]
+      - jupyterlab-code-formatter
+      - nbdime
