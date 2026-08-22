@@ -1,17 +1,17 @@
 from pathlib import Path
-from urllib.parse import quote_plus
 
 import pandas as pd
-from sqlalchemy import create_engine, text
+from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
 
-from db_config import DB_CONFIG
+from bds_common import DB_CONFIG, create_mysql_engine
 
 
-BASE_DIR = Path(__file__).resolve().parent
-FEED_FILES_DIR= BASE_DIR / "FeedFiles" 
+CODE_DIR = Path(__file__).resolve().parents[2]
+FEED_FILES_DIR = CODE_DIR / "FeedFiles"
 RAW_FILE = FEED_FILES_DIR / "raw_orders.csv"
 CLEAN_FILE = FEED_FILES_DIR / "clean_orders.csv"
+TABLE_NAME = DB_CONFIG.get("table_name") or "orders"
 
 
 def parse_mixed_date(value: object) -> pd.Timestamp:
@@ -28,13 +28,7 @@ def parse_mixed_date(value: object) -> pd.Timestamp:
 
 
 def build_engine():
-    password = quote_plus(DB_CONFIG["password"])
-    url = (
-        f"mysql+pymysql://{DB_CONFIG['user']}:{password}"
-        f"@{DB_CONFIG['host']}:{DB_CONFIG['port']}/{DB_CONFIG['database']}"
-        f"?charset={DB_CONFIG['charset']}"
-    )
-    return create_engine(url)
+    return create_mysql_engine(config=DB_CONFIG)
 
 
 def transform_data(df: pd.DataFrame) -> pd.DataFrame:
@@ -57,7 +51,7 @@ def transform_data(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def recreate_table(engine) -> None:
-    table_name = DB_CONFIG["table_name"]
+    table_name = TABLE_NAME
     create_sql = f"""
     CREATE TABLE IF NOT EXISTS {table_name} (
         order_id INT NOT NULL,
@@ -79,7 +73,7 @@ def load_to_mysql(df: pd.DataFrame) -> None:
     engine = build_engine()
     recreate_table(engine)
     df.to_sql(
-        DB_CONFIG["table_name"],
+        TABLE_NAME,
         con=engine,
         if_exists="append",
         index=False,
@@ -110,7 +104,7 @@ def main() -> None:
     print(f"clean file: {CLEAN_FILE}")
     print(
         "mysql target: "
-        f"{DB_CONFIG['database']}.{DB_CONFIG['table_name']} "
+        f"{DB_CONFIG['database']}.{TABLE_NAME} "
         f"@ {DB_CONFIG['host']}:{DB_CONFIG['port']}"
     )
 

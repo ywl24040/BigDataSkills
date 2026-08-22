@@ -2,7 +2,7 @@
 
 对应源码文件：
 
-- [etl_to_db.py](file:///g:/DataSkills/big-data-skills/Python_Pandas/ETL_DEMO1_FULL_LOAD/etl_to_db.py)
+- [etl_to_db.py](file:///g:/DataSkills/big-data-skills/Python_Pandas/ETL_DEMO1_FULL_LOAD/Code/Python/AI/etl_to_db.py)
 
 ## 1. 这个脚本是做什么的
 
@@ -35,7 +35,7 @@ import pandas as pd
 from sqlalchemy import create_engine, text
 from sqlalchemy.exc import SQLAlchemyError
 
-from db_config import DB_CONFIG
+from bds_common import DB_CONFIG
 ```
 
 解释：
@@ -61,8 +61,8 @@ from db_config import DB_CONFIG
   - 导入数据库异常类
   - 后面如果数据库连接失败，可以捕获错误并给出更友好的提示
 
-- `from db_config import DB_CONFIG`
-  - 从 `db_config.py` 中读取数据库配置
+- `from bds_common import DB_CONFIG`
+  - 从公共包 `bds_common` 中读取数据库配置（统一从仓库级配置文件加载）
   - 包括主机、端口、用户名、密码、数据库名等
 
 ---

@@ -55,6 +55,33 @@ conda activate big-data-skills-etl-demo1
 conda env update -f environment.yml --prune
 ```
 
+#### 公共包（bds_common）
+
+本仓库将“数据库配置加载 + MySQL 连接创建”等公共能力封装为 Python 包 `bds_common`，以便所有 Demo 像使用第三方库一样直接导入。
+
+源码位置：
+
+- [common/python](file:///g:/DataSkills/big-data-skills/common/python)
+
+开发环境安装（推荐，可编辑安装）：
+
+```bash
+conda activate big-data-skills
+python -m pip install -e common/python
+```
+
+Demo 中使用示例：
+
+```python
+from bds_common import DB_CONFIG, create_mysql_engine
+
+engine = create_mysql_engine(config=DB_CONFIG)
+```
+
+部署/打包说明：
+
+- [python_package_deployment_bds_common.md](file:///g:/DataSkills/big-data-skills/GuideLine/DeploymentManagement/python_package_deployment_bds_common.md)
+
 ETL Demo 位置：
 
 - 代码目录：[ETL_DEMO1_FULL_LOAD/Code/Python](file:///g:/DataSkills/big-data-skills/Python_Pandas/ETL_DEMO1_FULL_LOAD/Code/Python)

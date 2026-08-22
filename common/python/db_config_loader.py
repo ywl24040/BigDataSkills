@@ -1,7 +1,12 @@
 from pathlib import Path
 from configparser import ConfigParser
+try:
+    ROOT = Path(__file__).resolve().parents[2]  # 指向 big-data-skills 根
+except NameError:
+    # 处理 Notebook 场景（没有 __file__）
+    #   直接使用当前工作目录作为根目录
+    ROOT = Path.cwd()  # Notebook 场景（没有 __file__）
 
-ROOT = Path(__file__).resolve().parents[2]  # 指向 big-data-skills 根
 CONFIG_FILE = ROOT / "config" / "db_config.ini"
 
 # 从配置文件加载数据库连接信息

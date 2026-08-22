@@ -5,8 +5,8 @@ from datetime import datetime, timedelta
 import pandas as pd
 
 
-BASE_DIR = Path(__file__).resolve().parent
-FEED_FILES_DIR= BASE_DIR / "FeedFiles" 
+CODE_DIR = Path(__file__).resolve().parents[2]
+FEED_FILES_DIR = CODE_DIR / "FeedFiles"
 RAW_FILE = FEED_FILES_DIR / "raw_orders.csv"      
 CLEAN_FILE = FEED_FILES_DIR / "clean_orders.csv"
 TOTAL_ROWS = 3500
